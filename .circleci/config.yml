@@ -1,0 +1,99 @@
+version: 2.1
+orbs:
+  stepfunction-ci: "vydev/ciorb@2.0.3"
+
+contexts: &contexts
+  context:
+    - docker-hub-auth
+jobs:
+  build-frontend:
+    docker:
+      - image: cimg/node:14.18.1
+    environment:
+      TZ: "Europe/Oslo"
+    working_directory: /tmp/workspace
+    steps:
+      - checkout:
+          path: ~/repo
+      - run:
+          name: Install dependencies and scan for vulnerabilities
+          command: |
+            cd ~/repo
+            npm ci --no-audit
+            npm audit --production
+      - run:
+          name: Check formatting
+          command: |
+            cd ~/repo
+            npx prettier --check src/
+      - run:
+          name: Build frontend
+          command: |
+            s3_prefix="$CIRCLE_PROJECT_USERNAME/trafficgui-aws/frontends"
+            sha1="$(echo $CIRCLE_SHA1 | cut -c -7)"
+            zip_path="$(pwd)/artifacts/$s3_prefix/trafficgui-frontend-baseline"
+            zip_file="$zip_path/$sha1.zip"
+
+            mkdir -p "$zip_path"
+
+            printf "Initial contents of current directory '%s':\n" "$(pwd)"
+            ls -al
+
+            printf "Building frontend\n"
+            (cd ~/repo && CI=false npm run build)
+
+            printf "Creating zip archive of source code '%s':\n" "$zip_file"
+            (cd ~/repo/build; zip -r "$zip_file" .)
+            cp "$zip_file" "$zip_path/latest.zip"
+            printf "Final contents of current directory '%s':\n" "$(pwd)"
+            ls -al
+      - run:
+          name: Testing
+          command: |
+            cd ~/repo
+            npm run test -- --runInBand
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - "*"
+  upload-artifacts:
+    docker:
+      - image: vydev/circleci-ecr:latest
+    working_directory: /tmp/workspace
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Upload artifacts to S3
+          command: |
+            s3_bucket="171757367282-pipeline-artifact"
+            sha1="$(echo $CIRCLE_SHA1 | cut -c -7)"
+            aws s3 sync ./*/. "s3://$s3_bucket" --metadata "tags"="'[\"${sha1}-SHA1\",\"${CIRCLE_BRANCH}-branch\"]'"
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - stepfunction-ci/timestamp:
+          <<: *contexts
+      - stepfunction-ci/validate-terraform:
+          <<: *contexts
+          terraformimage: "vydev/terraform:1.0.0"
+          envs: "test"
+      - stepfunction-ci/build-repo-zip:
+          <<: *contexts
+          s3_bucket_name: "171757367282-pipeline-artifact"
+      - build-frontend
+      - upload-artifacts:
+          requires:
+            - stepfunction-ci/build-repo-zip
+            - build-frontend
+      - stepfunction-ci/upload-trigger-event:
+          <<: *contexts
+          s3_bucket_name: "171757367282-pipeline-artifact"
+          pipeline_name: "trafficgui-trafficgui-frontend-baseline-state-machine"
+          requires:
+            - upload-artifacts
+          filters:
+            branches:
+              only: master

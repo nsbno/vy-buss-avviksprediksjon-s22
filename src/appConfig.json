@@ -1,0 +1,17 @@
+{
+  "name": "trafficgui-frontend-baseline",
+  "environments": {
+    "TEST": "trafficgui-frontend-baseline.test.trafficgui.vydev.io",
+    "STAGE": "trafficgui-frontend-baseline.stage.trafficgui.vydev.io",
+    "PROD": "trafficgui-frontend-baseline.trafficgui.vydev.io"
+  },
+  "backend": {
+    "baseUrl": {
+      "DEV": "https://services.test.trafficgui.vydev.io",
+      "TEST": "https://services.test.trafficgui.vydev.io",
+      "STAGE": "https://services.stage.trafficgui.vydev.io",
+      "PROD": "https://services.trafficgui.vydev.io"
+    },
+    "contextPath": "/frontend-baseline-backend"
+  }
+}
