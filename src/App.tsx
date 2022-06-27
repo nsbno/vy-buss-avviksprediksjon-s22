@@ -9,6 +9,10 @@ import {
 import useLoginFlow from "auth/useLoginFlow";
 import { UnauthenticatedApp } from "UnauthenticatedApp";
 import { AuthenticatedApp } from "AuthenticatedApp";
+import { Dashboard } from "features/Dashboard/Dashboard";
+import { logout } from "auth/loginFlow";
+import { SporProvider } from "@vygruppen/spor-react";
+import { NotificationPage } from "pages/notificationPage/NotificationPage";
 
 type AppStatus = "Initialising" | "Unauthenticated" | "Authenticated";
 
@@ -25,25 +29,27 @@ const getAppStatus = (state: LoginFlowState): AppStatus => {
 };
 
 function App() {
-  const { state } = useLoginFlow(true);
-  const appStatus = getAppStatus(state);
+  // const { state } = useLoginFlow(true);
+  // const appStatus = getAppStatus(state);
 
-  switch (appStatus) {
-    case "Initialising":
-      return (
-        <ErrorBoundary>
-          <div className="App-container">
-            <p style={{ margin: 0, fontSize: "1rem" }}>Intialiserer app..</p>
-          </div>
-        </ErrorBoundary>
-      );
+  // switch (appStatus) {
+  //   case "Initialising":
+  //     return (
+  //       <ErrorBoundary>
+  //         <div className="App-container">
+  //           <p style={{ margin: 0, fontSize: "1rem" }}>Intialiserer app..</p>
+  //         </div>
+  //       </ErrorBoundary>
+  //     );
 
-    case "Authenticated":
-      return <AuthenticatedApp />;
+  //   case "Authenticated":
+  //     return <AuthenticatedApp />;
 
-    case "Unauthenticated":
-      return <UnauthenticatedApp />;
-  }
+  //   case "Unauthenticated":
+  //     return <UnauthenticatedApp />;
+  // }
+
+  return <NotificationPage />
 }
 
 export default App;

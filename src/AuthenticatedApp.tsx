@@ -12,6 +12,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { Button } from "./components/Buttons/button";
+import { NotificationPage } from "pages/notificationPage/NotificationPage";
 
 export const AuthenticatedApp: React.FC = () => {
   const { logout } = useLoginFlow(false);
@@ -59,14 +60,15 @@ const VerifyUser: React.FC = () => {
 const UnauthorizedUser: React.FC = () => {
   const { logout } = useLoginFlow();
   return (
-    <div className="App-container">
-      <SubTitle>OBS!</SubTitle>
-      <p style={{ margin: "0 0 1rem", fontSize: "1rem" }}>
-        Du har ikke tilgang
-      </p>
-      <Button type="button" onClick={logout}>
-        Logg ut
-      </Button>
-    </div>
+    <NotificationPage/>
+    // <div className="App-container">
+    //   <SubTitle>OBS!</SubTitle>
+    //   <p style={{ margin: "0 0 1rem", fontSize: "1rem" }}>
+    //     Du har ikke tilgang
+    //   </p>
+    //   <Button type="button" onClick={logout}>
+    //     Logg ut
+    //   </Button>
+    // </div>
   );
 };

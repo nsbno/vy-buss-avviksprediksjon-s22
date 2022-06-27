@@ -28,5 +28,6 @@ export const getCurrentEnvironment = (): Environment => {
     return Environment.PRODUCTION;
   }
 
-  throw new Error("Fant ikke riktig miljø");
+  return Environment.TEST
+  // throw new Error("Fant ikke riktig miljø");
 };

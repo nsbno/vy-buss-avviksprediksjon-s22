@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "TrafficGUI Frontend Baseline",
+  "short_name": "Avviksprediksjon",
+  "name": "Avviksprediksjon for buss",
   "icons": [
     {
       "src": "favicon.ico",

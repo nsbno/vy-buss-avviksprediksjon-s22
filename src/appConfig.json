@@ -1,5 +1,5 @@
 {
-  "name": "trafficgui-frontend-baseline",
+  "name": "buss-avviksprediksjon-s22",
   "environments": {
     "TEST": "trafficgui-frontend-baseline.test.trafficgui.vydev.io",
     "STAGE": "trafficgui-frontend-baseline.stage.trafficgui.vydev.io",
