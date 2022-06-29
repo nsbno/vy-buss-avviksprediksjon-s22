@@ -63,39 +63,19 @@ export const NotificationPage = () => {
   createNotification();*/
 
 
-  const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState<Notification[]>();
   useEffect(() => {
-    })
-
-  let notificationsList: Notification[] = [];
-  const getNotifications = async () => {
-    try {
-      notificationsList = await DataStore.query(Notification);
-      console.log("Notification retrieved successfully!", JSON.stringify(notificationsList, null, 2));
-    } catch (error) {
-      console.log("Error retrieving notifications", error);
+    const getNotifications = async () => {
+      try {
+        let response = await DataStore.query(Notification);
+        console.log("Notification retrieved successfully!", JSON.stringify(response, null, 2));
+        setNotifications(response);
+      } catch (error) {
+        console.log("Error retrieving notifications", error);
+      }
     }
-    let tabledata = notificationsList.forEach((element, i) => {
-      //console.log("Element!!!!: ", element)
-      //console.log(element.id)
-      //console.log(i)
-      return(
-        <Tr>
-          <Td>{element.vehicleNumber}</Td>
-          <Td>{element.tripRouteNumber}</Td>
-          <Td>{element.estimatedDelay}</Td>
-          <Td>{element.estimatedArrival}</Td>
-        </Tr>
-      );
-    });
-    return tabledata;
-  }
-  let displayableTable = getNotifications();
-
-  const createTable = () => {
-  }
-  createTable();
-
+    getNotifications();
+    }, [])
 
   // const { data, error, loaded } = useAxiosPost(
   //   "https://rf8tw7t1j4.execute-api.eu-central-1.amazonaws.com/daDelayPredictionTest",
@@ -136,21 +116,7 @@ export const NotificationPage = () => {
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td>Oslo bussterminal</Td>
-                <Td>Arendal stasjon</Td>
-                <Td isNumeric>11:00</Td>
-                <Td isNumeric>14:40</Td>
-              </Tr>
-              <Tr>
-                <Td>Oslo S</Td>
-                <Td>Drammen stasjon</Td>
-                <Td isNumeric>12:09</Td>
-                <Td isNumeric>12:42</Td>
-              </Tr>
-              
-              {notificationsList ? notificationsList.map((element) => {
-                console.log("HEIEHIEIEHIHE")
+              {notifications ? notifications.map((element) => {
                   return <Tr> 
                       <Td>{element.vehicleNumber}</Td>
                       <Td>{element.tripRouteNumber}</Td>
