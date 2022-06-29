@@ -1,0 +1,15 @@
+{
+  "devv": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-vybustempapp-devv-203459-authRole",
+      "UnauthRoleArn": "arn:aws:iam::460968334607:role/amplify-vybustempapp-devv-203459-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::460968334607:role/amplify-vybustempapp-devv-203459-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-vybustempapp-devv-203459-deployment",
+      "UnauthRoleName": "amplify-vybustempapp-devv-203459-unauthRole",
+      "StackName": "amplify-vybustempapp-devv-203459",
+      "StackId": "arn:aws:cloudformation:eu-central-1:460968334607:stack/amplify-vybustempapp-devv-203459/05a4bdb0-f711-11ec-bfa9-06468007b6a0",
+      "AmplifyAppId": "d3bpgf1h5mhbum"
+    }
+  }
+}
