@@ -14,6 +14,8 @@ import { logout } from "auth/loginFlow";
 import { SporProvider } from "@vygruppen/spor-react";
 import { NotificationPage } from "pages/notificationPage/NotificationPage";
 
+
+
 type AppStatus = "Initialising" | "Unauthenticated" | "Authenticated";
 
 const getAppStatus = (state: LoginFlowState): AppStatus => {
