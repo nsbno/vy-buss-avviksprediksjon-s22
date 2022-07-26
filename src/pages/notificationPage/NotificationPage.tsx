@@ -17,89 +17,59 @@ import { SubTitle } from "components/Text/StyledTitles";
 import styled from "styled-components";
 import { Image } from "@vygruppen/spor-react";
 import axios from "axios";
-import { DataStore } from 'aws-amplify';
+import { DataStore, Predicates } from 'aws-amplify';
 import { Notification, NotificationType } from "models";
 import { table } from "console";
-
-const useAxiosPost = (url: string, payload: any) => {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState("");
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.post(
-          url,
-          payload
-        );
-        setData(response.data);
-      } catch (error: any) {
-        setError(error.message);
-      } finally {
-        setLoaded(true);
-      }
-    })();
-  }, []);
-  return { data, error, loaded };
-};
+import { createdNotification } from "graphql/subscriptions";
 
 export const NotificationPage = () => {
 
-  /*const createNotification = async () => {
+  //CREATE NOTIFICATION
+  const createNotification = async () => {
     try {
       await DataStore.save(new Notification ({
         type: NotificationType.ACCIDENT,
-        vehicleNumber: "45645",
-        tripRouteNumber: "485",
-        estimatedDelay: "11",
-        estimatedArrival: "12:45"
+        vehicleNumber: "NY",
+        tripRouteNumber: "48566",
+        estimatedDelay: "17",
+        estimatedArrival: "12:55"
       })
       );
       console.log("Created a notification")
     } catch (error) {
-      console.log("Error creatign Notification", error)
+      console.log("Error creating Notification", error)
     }
   }
-  createNotification();*/
 
-
+  //GET NOTIFICATION METHOD
+  const getNotifications = async () => {
+    try {
+      let response = await DataStore.query(Notification);
+      /*await DataStore.save(
+        Notification.copyOf(original, updated => {
+          updated.vehicleNumber = newVehicleNumber
+        })
+      )*/
+      console.log("Notification retrieved successfully!", JSON.stringify(response, null, 2));
+      setNotifications(response);
+    } catch (error) {
+      console.log("Error retrieving notifications", error);
+    }
+  }
   const [notifications, setNotifications] = useState<Notification[]>();
   useEffect(() => {
-    const getNotifications = async () => {
-      try {
-        let response = await DataStore.query(Notification);
-        console.log("Notification retrieved successfully!", JSON.stringify(response, null, 2));
-        setNotifications(response);
-      } catch (error) {
-        console.log("Error retrieving notifications", error);
-      }
-    }
-    getNotifications();
+    const subscription = DataStore.observeQuery(Notification).subscribe(({ items }) => {
+      console.log(items)
+      setNotifications(items)
+    })
+    //createNotification();
+    //DataStore.delete(Notification, not => not.vehicleNumber("eq", "NY"));
+    return () => subscription.unsubscribe();
     }, [])
 
-  // const { data, error, loaded } = useAxiosPost(
-  //   "https://rf8tw7t1j4.execute-api.eu-central-1.amazonaws.com/daDelayPredictionTest",
-  //   {
-  //     "busId": "123",
-  //     "trips": "3",
-  //     "stops": "12",
-  //     "tripTimeStart": "08:30"
-  //   }
-  // );
-  // const stringifiedData = useMemo(() => {
-  //   return JSON.stringify(data || {});
-  // }, [data]);
-  // if (loaded) {
-  //   return error ? (
-  //     <span>Error: {error}</span>
-  //   ) : (
-  //     <div>
-  //       <p>{stringifiedData}</p>
-  //       <p>DATA: {data}</p>
-  //     </div>
-  //   );
-  // }
-  // return <span>Loading...</span>;
+    //PER NÅ: HENTER ENDRINGER GJORT FRA FRONTEND (IKKE ENDRINGER SOM GJØRES I DATABASEN MEN JEG TROR DET ER FORDI DE IKKE ER GJORT VIA 
+    // APPSYNC APIet SÅ HVIS MAN GJØR DET SENERE (IRL) SÅ GÅR DET KANSKJE BRA)
+    //Settes til deleted=true backend, så tror det funker! 
 
   return (
     <ErrorBoundary>
@@ -116,17 +86,17 @@ export const NotificationPage = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {notifications ? notifications.map((element) => {
-                  return <Tr> 
-                      <Td>{element.vehicleNumber}</Td>
-                      <Td>{element.tripRouteNumber}</Td>
-                      <Td>{element.estimatedDelay}</Td>
-                      <Td>{element.estimatedArrival}</Td>
-                  </Tr>
-               }) : <Tr><Td>Oslo S</Td>
-               <Td>Drammen stasjon</Td>
-               <Td isNumeric>12:09</Td>
-               <Td isNumeric>12:42</Td></Tr>}
+            {notifications ? notifications.map((element) => { 
+                return <Tr>  
+                    <Td>{element.vehicleNumber}</Td> 
+                    <Td>{element.tripRouteNumber}</Td> 
+                    <Td>{element.estimatedDelay}</Td> 
+                    <Td>{element.estimatedArrival}</Td> 
+                       </Tr> 
+                }) : <Tr><Td>Oslo S</Td> 
+                <Td>Drammen stasjon</Td> 
+                <Td isNumeric>12:09</Td> 
+                <Td isNumeric>12:42</Td></Tr>} 
             </Tbody>
           </Table>
         </div>

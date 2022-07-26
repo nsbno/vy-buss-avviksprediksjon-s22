@@ -2,12 +2,15 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateTodo = /* GraphQL */ `
-  subscription OnCreateTodo {
-    onCreateTodo {
+export const createdNotification = /* GraphQL */ `
+  subscription CreatedNotification {
+    createdNotification {
       id
-      name
-      description
+      type
+      vehicleNumber
+      tripRouteNumber
+      estimatedDelay
+      estimatedArrival
       createdAt
       updatedAt
       _version
@@ -16,12 +19,15 @@ export const onCreateTodo = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateTodo = /* GraphQL */ `
-  subscription OnUpdateTodo {
-    onUpdateTodo {
+export const deletedNotification = /* GraphQL */ `
+  subscription DeletedNotification {
+    deletedNotification {
       id
-      name
-      description
+      type
+      vehicleNumber
+      tripRouteNumber
+      estimatedDelay
+      estimatedArrival
       createdAt
       updatedAt
       _version
@@ -30,60 +36,15 @@ export const onUpdateTodo = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteTodo = /* GraphQL */ `
-  subscription OnDeleteTodo {
-    onDeleteTodo {
+export const updatedNotification = /* GraphQL */ `
+  subscription UpdatedNotification {
+    updatedNotification {
       id
-      name
-      description
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onCreatePost = /* GraphQL */ `
-  subscription OnCreatePost {
-    onCreatePost {
-      id
-      title
-      status
-      rating
-      content
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onUpdatePost = /* GraphQL */ `
-  subscription OnUpdatePost {
-    onUpdatePost {
-      id
-      title
-      status
-      rating
-      content
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onDeletePost = /* GraphQL */ `
-  subscription OnDeletePost {
-    onDeletePost {
-      id
-      title
-      status
-      rating
-      content
+      type
+      vehicleNumber
+      tripRouteNumber
+      estimatedDelay
+      estimatedArrival
       createdAt
       updatedAt
       _version
