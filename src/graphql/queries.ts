@@ -8,9 +8,12 @@ export const getNotification = /* GraphQL */ `
       id
       type
       vehicleNumber
+      blockNumber
       tripRouteNumber
-      estimatedDelay
+      tripRouteName
+      plannedArrival
       estimatedArrival
+      estimatedDelay
       createdAt
       updatedAt
       _version
@@ -30,9 +33,12 @@ export const listNotifications = /* GraphQL */ `
         id
         type
         vehicleNumber
+        blockNumber
         tripRouteNumber
-        estimatedDelay
+        tripRouteName
+        plannedArrival
         estimatedArrival
+        estimatedDelay
         createdAt
         updatedAt
         _version
@@ -61,9 +67,12 @@ export const syncNotifications = /* GraphQL */ `
         id
         type
         vehicleNumber
+        blockNumber
         tripRouteNumber
-        estimatedDelay
+        tripRouteName
+        plannedArrival
         estimatedArrival
+        estimatedDelay
         createdAt
         updatedAt
         _version

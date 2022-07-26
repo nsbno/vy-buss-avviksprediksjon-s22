@@ -8,9 +8,12 @@ export const createdNotification = /* GraphQL */ `
       id
       type
       vehicleNumber
+      blockNumber
       tripRouteNumber
-      estimatedDelay
+      tripRouteName
+      plannedArrival
       estimatedArrival
+      estimatedDelay
       createdAt
       updatedAt
       _version
@@ -25,9 +28,12 @@ export const deletedNotification = /* GraphQL */ `
       id
       type
       vehicleNumber
+      blockNumber
       tripRouteNumber
-      estimatedDelay
+      tripRouteName
+      plannedArrival
       estimatedArrival
+      estimatedDelay
       createdAt
       updatedAt
       _version
@@ -42,9 +48,12 @@ export const updatedNotification = /* GraphQL */ `
       id
       type
       vehicleNumber
+      blockNumber
       tripRouteNumber
-      estimatedDelay
+      tripRouteName
+      plannedArrival
       estimatedArrival
+      estimatedDelay
       createdAt
       updatedAt
       _version
@@ -59,9 +68,12 @@ export const onCreateNotification = /* GraphQL */ `
       id
       type
       vehicleNumber
+      blockNumber
       tripRouteNumber
-      estimatedDelay
+      tripRouteName
+      plannedArrival
       estimatedArrival
+      estimatedDelay
       createdAt
       updatedAt
       _version
@@ -76,9 +88,12 @@ export const onUpdateNotification = /* GraphQL */ `
       id
       type
       vehicleNumber
+      blockNumber
       tripRouteNumber
-      estimatedDelay
+      tripRouteName
+      plannedArrival
       estimatedArrival
+      estimatedDelay
       createdAt
       updatedAt
       _version
@@ -93,9 +108,12 @@ export const onDeleteNotification = /* GraphQL */ `
       id
       type
       vehicleNumber
+      blockNumber
       tripRouteNumber
-      estimatedDelay
+      tripRouteName
+      plannedArrival
       estimatedArrival
+      estimatedDelay
       createdAt
       updatedAt
       _version

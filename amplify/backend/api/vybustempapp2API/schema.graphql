@@ -6,14 +6,17 @@ type Notification @model {
   id: ID!
   type: NotificationType
   vehicleNumber: String!
+  blockNumber: String!
   tripRouteNumber: String!
-  estimatedDelay: String!
+  tripRouteName: String!
+  plannedArrival: String!
   estimatedArrival: String!
+  estimatedDelay: String!
 }
 
 enum NotificationType {
   ACCIDENT
-  RUSH
+  TRAFFICK
   LATELOGIN
 }
 

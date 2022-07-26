@@ -26,6 +26,13 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "blockNumber": {
+                    "name": "blockNumber",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "tripRouteNumber": {
                     "name": "tripRouteNumber",
                     "isArray": false,
@@ -33,8 +40,15 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "estimatedDelay": {
-                    "name": "estimatedDelay",
+                "tripRouteName": {
+                    "name": "tripRouteName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "plannedArrival": {
+                    "name": "plannedArrival",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -42,6 +56,13 @@ export const schema = {
                 },
                 "estimatedArrival": {
                     "name": "estimatedArrival",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "estimatedDelay": {
+                    "name": "estimatedDelay",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -79,11 +100,11 @@ export const schema = {
             "name": "NotificationType",
             "values": [
                 "ACCIDENT",
-                "RUSH",
+                "TRAFFICK",
                 "LATELOGIN"
             ]
         }
     },
     "nonModels": {},
-    "version": "025c9d1b02956f8beea34b62ad672405"
+    "version": "ab02d3b7449ee8705225c515b3716841"
 };

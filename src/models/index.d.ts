@@ -2,7 +2,7 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 export enum NotificationType {
   ACCIDENT = "ACCIDENT",
-  RUSH = "RUSH",
+  TRAFFICK = "TRAFFICK",
   LATELOGIN = "LATELOGIN"
 }
 
@@ -16,9 +16,12 @@ export declare class Notification {
   readonly id: string;
   readonly type?: NotificationType | keyof typeof NotificationType | null;
   readonly vehicleNumber: string;
+  readonly blockNumber: string;
   readonly tripRouteNumber: string;
-  readonly estimatedDelay: string;
+  readonly tripRouteName: string;
+  readonly plannedArrival: string;
   readonly estimatedArrival: string;
+  readonly estimatedDelay: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Notification, NotificationMetaData>);

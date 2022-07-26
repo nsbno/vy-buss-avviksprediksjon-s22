@@ -20,25 +20,30 @@ import axios from "axios";
 import { DataStore, Predicates } from 'aws-amplify';
 import { Notification, NotificationType } from "models";
 import { table } from "console";
-import { createdNotification } from "graphql/subscriptions";
 
 export const NotificationPage = () => {
 
   //CREATE NOTIFICATION
   const createNotification = async () => {
+    console.log("inni create")
     try {
+      console.log("inside try")
       await DataStore.save(new Notification ({
-        type: NotificationType.ACCIDENT,
-        vehicleNumber: "NY",
-        tripRouteNumber: "48566",
-        estimatedDelay: "17",
-        estimatedArrival: "12:55"
+        type: NotificationType.TRAFFICK,
+        vehicleNumber: "7263",
+        blockNumber: "5500",
+        tripRouteNumber: "470",
+        tripRouteName: "Bjørkelangen - Lillestrøm",
+        plannedArrival: "15:07",
+        estimatedArrival: "15:22",
+        estimatedDelay: "15"
       })
       );
       console.log("Created a notification")
     } catch (error) {
       console.log("Error creating Notification", error)
     }
+    console.log("etter create")
   }
 
   //GET NOTIFICATION METHOD
@@ -59,16 +64,17 @@ export const NotificationPage = () => {
   const [notifications, setNotifications] = useState<Notification[]>();
   useEffect(() => {
     const subscription = DataStore.observeQuery(Notification).subscribe(({ items }) => {
-      console.log(items)
+      console.log("items", items)
       setNotifications(items)
     })
-    //createNotification();
+    createNotification();
+    console.log("inni useeffect")
     //DataStore.delete(Notification, not => not.vehicleNumber("eq", "NY"));
     return () => subscription.unsubscribe();
     }, [])
 
     //PER NÅ: HENTER ENDRINGER GJORT FRA FRONTEND (IKKE ENDRINGER SOM GJØRES I DATABASEN MEN JEG TROR DET ER FORDI DE IKKE ER GJORT VIA 
-    // APPSYNC APIet SÅ HVIS MAN GJØR DET SENERE (IRL) SÅ GÅR DET KANSKJE BRA)
+    // APPSYNC APIet SÅ HVIS MAN GJØR DET SENERE (IRL VIA APIet)  SÅ GÅR DET KANSKJE BRA)
     //Settes til deleted=true backend, så tror det funker! 
 
   return (

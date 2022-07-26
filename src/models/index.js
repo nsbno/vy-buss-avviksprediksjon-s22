@@ -4,7 +4,7 @@ import { schema } from './schema';
 
 const NotificationType = {
   "ACCIDENT": "ACCIDENT",
-  "RUSH": "RUSH",
+  "TRAFFICK": "TRAFFICK",
   "LATELOGIN": "LATELOGIN"
 };
 
