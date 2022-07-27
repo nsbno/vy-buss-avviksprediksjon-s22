@@ -1,0 +1,12 @@
+type Notification @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  type: String
+  vehicleId: Int
+  blockId: Int
+  tripRouteId: Int
+  tripRouteName: String
+  plannedArrival: AWSDateTime
+  estimatedArrival: AWSDateTime
+  estimatedDelay: Float
+  status: String
+}

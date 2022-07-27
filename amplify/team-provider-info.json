@@ -1,0 +1,15 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-vybusstrafficmonitor-staging-84029-authRole",
+      "UnauthRoleArn": "arn:aws:iam::460968334607:role/amplify-vybusstrafficmonitor-staging-84029-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::460968334607:role/amplify-vybusstrafficmonitor-staging-84029-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-vybusstrafficmonitor-staging-84029-deployment",
+      "UnauthRoleName": "amplify-vybusstrafficmonitor-staging-84029-unauthRole",
+      "StackName": "amplify-vybusstrafficmonitor-staging-84029",
+      "StackId": "arn:aws:cloudformation:eu-central-1:460968334607:stack/amplify-vybusstrafficmonitor-staging-84029/c4f2dcb0-0d87-11ed-9814-0a7cc218f77c",
+      "AmplifyAppId": "d207z841n6trf3"
+    }
+  }
+}

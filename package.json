@@ -1,0 +1,67 @@
+{
+  "name": "buss-avviksprediksjon-s22",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@aws-amplify/datastore": "^3.12.1",
+    "@chakra-ui/react": "^1.8.8",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@vygruppen/spor-react": "^0.13.8",
+    "aws-amplify": "^4.3.26",
+    "axios": "^0.27.2",
+    "eslint": "^8.18.0",
+    "eslint-plugin-react": "^7.30.0",
+    "framer-motion": "^6.3.12",
+    "pkce-challenge": "^3.0.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-router-dom": "^6.3.0",
+    "styled-components": "^5.3.5",
+    "uuid": "^8.3.2",
+    "workbox-core": "^6.5.3",
+    "workbox-routing": "^6.5.3",
+    "workbox-strategies": "^6.5.3"
+  },
+  "scripts": {
+    "check-lint": "eslint --ext .js,.jsx,.ts,.tsx src/",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "deploy": "aws s3 sync build/ s3://da-bus-delay-prediction-frontend"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^14.2.0",
+    "@types/jest": "^28.1.0",
+    "@types/node": "^17.0.38",
+    "@types/react": "^18.0.10",
+    "@types/react-dom": "^18.0.5",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/styled-components": "^5.1.25",
+    "@types/uuid": "^8.3.4",
+    "prettier": "^2.6.2",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.7.2"
+  }
+}
