@@ -87,3 +87,85 @@ export const syncNotifications = /* GraphQL */ `
     }
   }
 `;
+export const getVarsel = /* GraphQL */ `
+  query GetVarsel($id: ID!) {
+    getVarsel(id: $id) {
+      id
+      type
+      vehicleId
+      blockId
+      tripRouteNumber
+      plannedArrival
+      estimatedArrival
+      estimatedDelay
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const listVarsels = /* GraphQL */ `
+  query ListVarsels(
+    $filter: ModelVarselFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listVarsels(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        type
+        vehicleId
+        blockId
+        tripRouteNumber
+        plannedArrival
+        estimatedArrival
+        estimatedDelay
+        status
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncVarsels = /* GraphQL */ `
+  query SyncVarsels(
+    $filter: ModelVarselFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncVarsels(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        type
+        vehicleId
+        blockId
+        tripRouteNumber
+        plannedArrival
+        estimatedArrival
+        estimatedDelay
+        status
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;

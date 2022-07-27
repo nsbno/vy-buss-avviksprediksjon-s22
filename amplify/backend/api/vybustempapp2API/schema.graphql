@@ -15,6 +15,18 @@ type Notification @model {
   status: Status
 }
 
+type Varsel @model {
+  id: ID!
+  type: NotificationType
+  vehicleId: String! 
+  blockId: String! 
+  tripRouteNumber: String! 
+  plannedArrival: AWSDateTime! 
+  estimatedArrival: AWSDateTime!
+  estimatedDelay: Float!
+  status: Status
+}
+
 enum NotificationType {
   ACCIDENT
   TRAFFICK
@@ -33,7 +45,11 @@ type Subscription {
     @aws_subscribe(mutations: ["deleteNotification"])
   updatedNotification: Notification
     @aws_subscribe(mutations: ["updateNotification"])
+  createdVarsel: Varsel 
+    @aws_subscribe(mutations: ["createVarsel"])
+  deletedVarsel: Varsel 
+    @aws_subscribe(mutations: ["deleteVarsel"])
+  updatedVarsel: Varsel
+    @aws_subscribe(mutations: ["updateVarsel"])
 }
-
-
 

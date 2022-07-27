@@ -13,10 +13,11 @@ const Status = {
   "HANDLED": "HANDLED"
 };
 
-const { Notification } = initSchema(schema);
+const { Notification, Varsel } = initSchema(schema);
 
 export {
   Notification,
+  Varsel,
   NotificationType,
   Status
 };

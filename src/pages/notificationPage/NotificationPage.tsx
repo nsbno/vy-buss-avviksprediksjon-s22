@@ -46,7 +46,6 @@ export const NotificationPage = () => {
     }
     console.log("etter create")
   }
-  createNotification();
 
   //GET NOTIFICATION METHOD
   const getNotifications = async () => {
@@ -55,24 +54,26 @@ export const NotificationPage = () => {
       let response = await DataStore.query(Notification);
 
       console.log("Notification retrieved successfully!", JSON.stringify(response, null, 2));
+      console.log("response: ", response)
       setNotifications(response);
     } catch (error) {
       console.log("Error retrieving notifications", error);
     }
   }
+
   const [notifications, setNotifications] = useState<Notification[]>();
   useEffect(() => {
     DataStore.start();
-    /*const subscription = DataStore.observeQuery(Notification).subscribe(({ items }) => {
+    const subscription = DataStore.observeQuery(Notification).subscribe(({ items }) => {
       console.log("items. ", items)
       setNotifications(items)
     })
-    console.log(subscription)*/
-    createNotification();
-    getNotifications();
+    console.log(subscription)
     console.log("inni useeffect")
-    //DataStore.delete(Notification, not => not.vehicleNumber("eq", "NY"));
-  //  return () => subscription.unsubscribe();
+    createNotification();
+    //getNotifications();
+    DataStore.delete(Notification, not => not.vehicleNumber("eq", "7623487"));
+    return () => subscription.unsubscribe();
     }, [])
 
     // APPSYNC APIet SÅ HVIS MAN GJØR DET SENERE (IRL) SÅ GÅR DET KANSKJE BRA)

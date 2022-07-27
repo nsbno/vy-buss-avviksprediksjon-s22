@@ -65,6 +65,66 @@ export const updatedNotification = /* GraphQL */ `
     }
   }
 `;
+export const createdVarsel = /* GraphQL */ `
+  subscription CreatedVarsel {
+    createdVarsel {
+      id
+      type
+      vehicleId
+      blockId
+      tripRouteNumber
+      plannedArrival
+      estimatedArrival
+      estimatedDelay
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const deletedVarsel = /* GraphQL */ `
+  subscription DeletedVarsel {
+    deletedVarsel {
+      id
+      type
+      vehicleId
+      blockId
+      tripRouteNumber
+      plannedArrival
+      estimatedArrival
+      estimatedDelay
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const updatedVarsel = /* GraphQL */ `
+  subscription UpdatedVarsel {
+    updatedVarsel {
+      id
+      type
+      vehicleId
+      blockId
+      tripRouteNumber
+      plannedArrival
+      estimatedArrival
+      estimatedDelay
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
 export const onCreateNotification = /* GraphQL */ `
   subscription OnCreateNotification {
     onCreateNotification {
@@ -116,6 +176,66 @@ export const onDeleteNotification = /* GraphQL */ `
       blockNumber
       tripRouteNumber
       tripRouteName
+      plannedArrival
+      estimatedArrival
+      estimatedDelay
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onCreateVarsel = /* GraphQL */ `
+  subscription OnCreateVarsel {
+    onCreateVarsel {
+      id
+      type
+      vehicleId
+      blockId
+      tripRouteNumber
+      plannedArrival
+      estimatedArrival
+      estimatedDelay
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onUpdateVarsel = /* GraphQL */ `
+  subscription OnUpdateVarsel {
+    onUpdateVarsel {
+      id
+      type
+      vehicleId
+      blockId
+      tripRouteNumber
+      plannedArrival
+      estimatedArrival
+      estimatedDelay
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onDeleteVarsel = /* GraphQL */ `
+  subscription OnDeleteVarsel {
+    onDeleteVarsel {
+      id
+      type
+      vehicleId
+      blockId
+      tripRouteNumber
       plannedArrival
       estimatedArrival
       estimatedDelay

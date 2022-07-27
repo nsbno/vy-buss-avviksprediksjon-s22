@@ -132,6 +132,81 @@ export type DeleteNotificationInput = {
   _version?: number | null,
 };
 
+export type CreateVarselInput = {
+  id?: string | null,
+  type?: NotificationType | null,
+  vehicleId: string,
+  blockId: string,
+  tripRouteNumber: string,
+  plannedArrival: string,
+  estimatedArrival: string,
+  estimatedDelay: number,
+  status?: Status | null,
+  _version?: number | null,
+};
+
+export type ModelVarselConditionInput = {
+  type?: ModelNotificationTypeInput | null,
+  vehicleId?: ModelStringInput | null,
+  blockId?: ModelStringInput | null,
+  tripRouteNumber?: ModelStringInput | null,
+  plannedArrival?: ModelStringInput | null,
+  estimatedArrival?: ModelStringInput | null,
+  estimatedDelay?: ModelFloatInput | null,
+  status?: ModelStatusInput | null,
+  and?: Array< ModelVarselConditionInput | null > | null,
+  or?: Array< ModelVarselConditionInput | null > | null,
+  not?: ModelVarselConditionInput | null,
+};
+
+export type ModelFloatInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type Varsel = {
+  __typename: "Varsel",
+  id: string,
+  type?: NotificationType | null,
+  vehicleId: string,
+  blockId: string,
+  tripRouteNumber: string,
+  plannedArrival: string,
+  estimatedArrival: string,
+  estimatedDelay: number,
+  status?: Status | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type UpdateVarselInput = {
+  id: string,
+  type?: NotificationType | null,
+  vehicleId?: string | null,
+  blockId?: string | null,
+  tripRouteNumber?: string | null,
+  plannedArrival?: string | null,
+  estimatedArrival?: string | null,
+  estimatedDelay?: number | null,
+  status?: Status | null,
+  _version?: number | null,
+};
+
+export type DeleteVarselInput = {
+  id: string,
+  _version?: number | null,
+};
+
 export type ModelNotificationFilterInput = {
   id?: ModelIDInput | null,
   type?: ModelNotificationTypeInput | null,
@@ -167,6 +242,28 @@ export type ModelIDInput = {
 export type ModelNotificationConnection = {
   __typename: "ModelNotificationConnection",
   items:  Array<Notification | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type ModelVarselFilterInput = {
+  id?: ModelIDInput | null,
+  type?: ModelNotificationTypeInput | null,
+  vehicleId?: ModelStringInput | null,
+  blockId?: ModelStringInput | null,
+  tripRouteNumber?: ModelStringInput | null,
+  plannedArrival?: ModelStringInput | null,
+  estimatedArrival?: ModelStringInput | null,
+  estimatedDelay?: ModelFloatInput | null,
+  status?: ModelStatusInput | null,
+  and?: Array< ModelVarselFilterInput | null > | null,
+  or?: Array< ModelVarselFilterInput | null > | null,
+  not?: ModelVarselFilterInput | null,
+};
+
+export type ModelVarselConnection = {
+  __typename: "ModelVarselConnection",
+  items:  Array<Varsel | null >,
   nextToken?: string | null,
   startedAt?: number | null,
 };
@@ -240,6 +337,81 @@ export type DeleteNotificationMutation = {
     plannedArrival: string,
     estimatedArrival: string,
     estimatedDelay: string,
+    status?: Status | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type CreateVarselMutationVariables = {
+  input: CreateVarselInput,
+  condition?: ModelVarselConditionInput | null,
+};
+
+export type CreateVarselMutation = {
+  createVarsel?:  {
+    __typename: "Varsel",
+    id: string,
+    type?: NotificationType | null,
+    vehicleId: string,
+    blockId: string,
+    tripRouteNumber: string,
+    plannedArrival: string,
+    estimatedArrival: string,
+    estimatedDelay: number,
+    status?: Status | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type UpdateVarselMutationVariables = {
+  input: UpdateVarselInput,
+  condition?: ModelVarselConditionInput | null,
+};
+
+export type UpdateVarselMutation = {
+  updateVarsel?:  {
+    __typename: "Varsel",
+    id: string,
+    type?: NotificationType | null,
+    vehicleId: string,
+    blockId: string,
+    tripRouteNumber: string,
+    plannedArrival: string,
+    estimatedArrival: string,
+    estimatedDelay: number,
+    status?: Status | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type DeleteVarselMutationVariables = {
+  input: DeleteVarselInput,
+  condition?: ModelVarselConditionInput | null,
+};
+
+export type DeleteVarselMutation = {
+  deleteVarsel?:  {
+    __typename: "Varsel",
+    id: string,
+    type?: NotificationType | null,
+    vehicleId: string,
+    blockId: string,
+    tripRouteNumber: string,
+    plannedArrival: string,
+    estimatedArrival: string,
+    estimatedDelay: number,
     status?: Status | null,
     createdAt: string,
     updatedAt: string,
@@ -339,6 +511,93 @@ export type SyncNotificationsQuery = {
   } | null,
 };
 
+export type GetVarselQueryVariables = {
+  id: string,
+};
+
+export type GetVarselQuery = {
+  getVarsel?:  {
+    __typename: "Varsel",
+    id: string,
+    type?: NotificationType | null,
+    vehicleId: string,
+    blockId: string,
+    tripRouteNumber: string,
+    plannedArrival: string,
+    estimatedArrival: string,
+    estimatedDelay: number,
+    status?: Status | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type ListVarselsQueryVariables = {
+  filter?: ModelVarselFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListVarselsQuery = {
+  listVarsels?:  {
+    __typename: "ModelVarselConnection",
+    items:  Array< {
+      __typename: "Varsel",
+      id: string,
+      type?: NotificationType | null,
+      vehicleId: string,
+      blockId: string,
+      tripRouteNumber: string,
+      plannedArrival: string,
+      estimatedArrival: string,
+      estimatedDelay: number,
+      status?: Status | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncVarselsQueryVariables = {
+  filter?: ModelVarselFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncVarselsQuery = {
+  syncVarsels?:  {
+    __typename: "ModelVarselConnection",
+    items:  Array< {
+      __typename: "Varsel",
+      id: string,
+      type?: NotificationType | null,
+      vehicleId: string,
+      blockId: string,
+      tripRouteNumber: string,
+      plannedArrival: string,
+      estimatedArrival: string,
+      estimatedDelay: number,
+      status?: Status | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
 export type CreatedNotificationSubscription = {
   createdNotification?:  {
     __typename: "Notification",
@@ -402,6 +661,66 @@ export type UpdatedNotificationSubscription = {
   } | null,
 };
 
+export type CreatedVarselSubscription = {
+  createdVarsel?:  {
+    __typename: "Varsel",
+    id: string,
+    type?: NotificationType | null,
+    vehicleId: string,
+    blockId: string,
+    tripRouteNumber: string,
+    plannedArrival: string,
+    estimatedArrival: string,
+    estimatedDelay: number,
+    status?: Status | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type DeletedVarselSubscription = {
+  deletedVarsel?:  {
+    __typename: "Varsel",
+    id: string,
+    type?: NotificationType | null,
+    vehicleId: string,
+    blockId: string,
+    tripRouteNumber: string,
+    plannedArrival: string,
+    estimatedArrival: string,
+    estimatedDelay: number,
+    status?: Status | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type UpdatedVarselSubscription = {
+  updatedVarsel?:  {
+    __typename: "Varsel",
+    id: string,
+    type?: NotificationType | null,
+    vehicleId: string,
+    blockId: string,
+    tripRouteNumber: string,
+    plannedArrival: string,
+    estimatedArrival: string,
+    estimatedDelay: number,
+    status?: Status | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
 export type OnCreateNotificationSubscription = {
   onCreateNotification?:  {
     __typename: "Notification",
@@ -456,6 +775,66 @@ export type OnDeleteNotificationSubscription = {
     plannedArrival: string,
     estimatedArrival: string,
     estimatedDelay: string,
+    status?: Status | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnCreateVarselSubscription = {
+  onCreateVarsel?:  {
+    __typename: "Varsel",
+    id: string,
+    type?: NotificationType | null,
+    vehicleId: string,
+    blockId: string,
+    tripRouteNumber: string,
+    plannedArrival: string,
+    estimatedArrival: string,
+    estimatedDelay: number,
+    status?: Status | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnUpdateVarselSubscription = {
+  onUpdateVarsel?:  {
+    __typename: "Varsel",
+    id: string,
+    type?: NotificationType | null,
+    vehicleId: string,
+    blockId: string,
+    tripRouteNumber: string,
+    plannedArrival: string,
+    estimatedArrival: string,
+    estimatedDelay: number,
+    status?: Status | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnDeleteVarselSubscription = {
+  onDeleteVarsel?:  {
+    __typename: "Varsel",
+    id: string,
+    type?: NotificationType | null,
+    vehicleId: string,
+    blockId: string,
+    tripRouteNumber: string,
+    plannedArrival: string,
+    estimatedArrival: string,
+    estimatedDelay: number,
     status?: Status | null,
     createdAt: string,
     updatedAt: string,

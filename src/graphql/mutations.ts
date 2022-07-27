@@ -74,3 +74,72 @@ export const deleteNotification = /* GraphQL */ `
     }
   }
 `;
+export const createVarsel = /* GraphQL */ `
+  mutation CreateVarsel(
+    $input: CreateVarselInput!
+    $condition: ModelVarselConditionInput
+  ) {
+    createVarsel(input: $input, condition: $condition) {
+      id
+      type
+      vehicleId
+      blockId
+      tripRouteNumber
+      plannedArrival
+      estimatedArrival
+      estimatedDelay
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const updateVarsel = /* GraphQL */ `
+  mutation UpdateVarsel(
+    $input: UpdateVarselInput!
+    $condition: ModelVarselConditionInput
+  ) {
+    updateVarsel(input: $input, condition: $condition) {
+      id
+      type
+      vehicleId
+      blockId
+      tripRouteNumber
+      plannedArrival
+      estimatedArrival
+      estimatedDelay
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const deleteVarsel = /* GraphQL */ `
+  mutation DeleteVarsel(
+    $input: DeleteVarselInput!
+    $condition: ModelVarselConditionInput
+  ) {
+    deleteVarsel(input: $input, condition: $condition) {
+      id
+      type
+      vehicleId
+      blockId
+      tripRouteNumber
+      plannedArrival
+      estimatedArrival
+      estimatedDelay
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
