@@ -46,7 +46,6 @@ export const NotificationPage = () => {
     }
     console.log("etter create")
   }
-  //createNotification();
 
   //GET NOTIFICATION METHOD
   const getNotifications = async () => {
@@ -68,16 +67,12 @@ export const NotificationPage = () => {
       setNotifications(items)
     })
     console.log(subscription)
-    //createNotification();
+    createNotification();
     //getNotifications();
-    console.log("inni useeffect")
-    //DataStore.delete(Notification, not => not.vehicleNumber("eq", "NY"));
-  //  return () => subscription.unsubscribe();
-    }, [])
 
-    // APPSYNC APIet SÅ HVIS MAN GJØR DET SENERE (IRL) SÅ GÅR DET KANSKJE BRA)
-    // APPSYNC APIet SÅ HVIS MAN GJØR DET SENERE (IRL VIA APIet)  SÅ GÅR DET KANSKJE BRA)
-    //Settes til deleted=true backend, så tror det funker! 
+    //DataStore.delete(Notification, not => not.vehicleId("eq", 7623487));
+    return () => subscription.unsubscribe();
+    }, [])
 
   return (
     <ErrorBoundary>

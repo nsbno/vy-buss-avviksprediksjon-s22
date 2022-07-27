@@ -6,6 +6,7 @@ import * as serviceWorkerRegistration from "serviceWorkerRegistration";
 import { SporProvider } from "@vygruppen/spor-react";
 import { Amplify, API, graphqlOperation } from 'aws-amplify';
 import awsconfig from './aws-exports';
+
 Amplify.configure(awsconfig);
 
 const root = createRoot(document.getElementById("root")!);
