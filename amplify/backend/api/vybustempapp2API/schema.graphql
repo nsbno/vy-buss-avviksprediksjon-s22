@@ -12,12 +12,18 @@ type Notification @model {
   plannedArrival: String!
   estimatedArrival: String!
   estimatedDelay: String!
+  status: Status
 }
 
 enum NotificationType {
   ACCIDENT
   TRAFFICK
   LATELOGIN
+}
+
+enum Status {
+  UNHANDLED
+  HANDLED
 }
 
 type Subscription {

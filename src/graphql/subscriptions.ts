@@ -14,6 +14,7 @@ export const createdNotification = /* GraphQL */ `
       plannedArrival
       estimatedArrival
       estimatedDelay
+      status
       createdAt
       updatedAt
       _version
@@ -34,6 +35,7 @@ export const deletedNotification = /* GraphQL */ `
       plannedArrival
       estimatedArrival
       estimatedDelay
+      status
       createdAt
       updatedAt
       _version
@@ -54,6 +56,7 @@ export const updatedNotification = /* GraphQL */ `
       plannedArrival
       estimatedArrival
       estimatedDelay
+      status
       createdAt
       updatedAt
       _version
@@ -74,6 +77,7 @@ export const onCreateNotification = /* GraphQL */ `
       plannedArrival
       estimatedArrival
       estimatedDelay
+      status
       createdAt
       updatedAt
       _version
@@ -94,6 +98,7 @@ export const onUpdateNotification = /* GraphQL */ `
       plannedArrival
       estimatedArrival
       estimatedDelay
+      status
       createdAt
       updatedAt
       _version
@@ -114,6 +119,7 @@ export const onDeleteNotification = /* GraphQL */ `
       plannedArrival
       estimatedArrival
       estimatedDelay
+      status
       createdAt
       updatedAt
       _version

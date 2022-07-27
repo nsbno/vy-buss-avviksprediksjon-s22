@@ -12,6 +12,7 @@ export type CreateNotificationInput = {
   plannedArrival: string,
   estimatedArrival: string,
   estimatedDelay: string,
+  status?: Status | null,
   _version?: number | null,
 };
 
@@ -19,6 +20,12 @@ export enum NotificationType {
   ACCIDENT = "ACCIDENT",
   TRAFFICK = "TRAFFICK",
   LATELOGIN = "LATELOGIN",
+}
+
+
+export enum Status {
+  UNHANDLED = "UNHANDLED",
+  HANDLED = "HANDLED",
 }
 
 
@@ -31,6 +38,7 @@ export type ModelNotificationConditionInput = {
   plannedArrival?: ModelStringInput | null,
   estimatedArrival?: ModelStringInput | null,
   estimatedDelay?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
   and?: Array< ModelNotificationConditionInput | null > | null,
   or?: Array< ModelNotificationConditionInput | null > | null,
   not?: ModelNotificationConditionInput | null,
@@ -81,6 +89,11 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelStatusInput = {
+  eq?: Status | null,
+  ne?: Status | null,
+};
+
 export type Notification = {
   __typename: "Notification",
   id: string,
@@ -92,6 +105,7 @@ export type Notification = {
   plannedArrival: string,
   estimatedArrival: string,
   estimatedDelay: string,
+  status?: Status | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
@@ -109,6 +123,7 @@ export type UpdateNotificationInput = {
   plannedArrival?: string | null,
   estimatedArrival?: string | null,
   estimatedDelay?: string | null,
+  status?: Status | null,
   _version?: number | null,
 };
 
@@ -127,6 +142,7 @@ export type ModelNotificationFilterInput = {
   plannedArrival?: ModelStringInput | null,
   estimatedArrival?: ModelStringInput | null,
   estimatedDelay?: ModelStringInput | null,
+  status?: ModelStatusInput | null,
   and?: Array< ModelNotificationFilterInput | null > | null,
   or?: Array< ModelNotificationFilterInput | null > | null,
   not?: ModelNotificationFilterInput | null,
@@ -172,6 +188,7 @@ export type CreateNotificationMutation = {
     plannedArrival: string,
     estimatedArrival: string,
     estimatedDelay: string,
+    status?: Status | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -197,6 +214,7 @@ export type UpdateNotificationMutation = {
     plannedArrival: string,
     estimatedArrival: string,
     estimatedDelay: string,
+    status?: Status | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -222,6 +240,7 @@ export type DeleteNotificationMutation = {
     plannedArrival: string,
     estimatedArrival: string,
     estimatedDelay: string,
+    status?: Status | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -246,6 +265,7 @@ export type GetNotificationQuery = {
     plannedArrival: string,
     estimatedArrival: string,
     estimatedDelay: string,
+    status?: Status | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -274,6 +294,7 @@ export type ListNotificationsQuery = {
       plannedArrival: string,
       estimatedArrival: string,
       estimatedDelay: string,
+      status?: Status | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -306,6 +327,7 @@ export type SyncNotificationsQuery = {
       plannedArrival: string,
       estimatedArrival: string,
       estimatedDelay: string,
+      status?: Status | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -329,6 +351,7 @@ export type CreatedNotificationSubscription = {
     plannedArrival: string,
     estimatedArrival: string,
     estimatedDelay: string,
+    status?: Status | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -349,6 +372,7 @@ export type DeletedNotificationSubscription = {
     plannedArrival: string,
     estimatedArrival: string,
     estimatedDelay: string,
+    status?: Status | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -369,6 +393,7 @@ export type UpdatedNotificationSubscription = {
     plannedArrival: string,
     estimatedArrival: string,
     estimatedDelay: string,
+    status?: Status | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -389,6 +414,7 @@ export type OnCreateNotificationSubscription = {
     plannedArrival: string,
     estimatedArrival: string,
     estimatedDelay: string,
+    status?: Status | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -409,6 +435,7 @@ export type OnUpdateNotificationSubscription = {
     plannedArrival: string,
     estimatedArrival: string,
     estimatedDelay: string,
+    status?: Status | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -429,6 +456,7 @@ export type OnDeleteNotificationSubscription = {
     plannedArrival: string,
     estimatedArrival: string,
     estimatedDelay: string,
+    status?: Status | null,
     createdAt: string,
     updatedAt: string,
     _version: number,

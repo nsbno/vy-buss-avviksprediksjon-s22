@@ -68,6 +68,15 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "status": {
+                    "name": "status",
+                    "isArray": false,
+                    "type": {
+                        "enum": "Status"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -103,8 +112,15 @@ export const schema = {
                 "TRAFFICK",
                 "LATELOGIN"
             ]
+        },
+        "Status": {
+            "name": "Status",
+            "values": [
+                "UNHANDLED",
+                "HANDLED"
+            ]
         }
     },
     "nonModels": {},
-    "version": "ab02d3b7449ee8705225c515b3716841"
+    "version": "0c669035a1bd1d19b7b070411b0892bf"
 };

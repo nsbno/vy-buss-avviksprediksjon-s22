@@ -8,9 +8,15 @@ const NotificationType = {
   "LATELOGIN": "LATELOGIN"
 };
 
+const Status = {
+  "UNHANDLED": "UNHANDLED",
+  "HANDLED": "HANDLED"
+};
+
 const { Notification } = initSchema(schema);
 
 export {
   Notification,
-  NotificationType
+  NotificationType,
+  Status
 };

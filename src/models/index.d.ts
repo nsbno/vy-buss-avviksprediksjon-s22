@@ -6,6 +6,11 @@ export enum NotificationType {
   LATELOGIN = "LATELOGIN"
 }
 
+export enum Status {
+  UNHANDLED = "UNHANDLED",
+  HANDLED = "HANDLED"
+}
+
 
 
 type NotificationMetaData = {
@@ -22,6 +27,7 @@ export declare class Notification {
   readonly plannedArrival: string;
   readonly estimatedArrival: string;
   readonly estimatedDelay: string;
+  readonly status?: Status | keyof typeof Status | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Notification, NotificationMetaData>);

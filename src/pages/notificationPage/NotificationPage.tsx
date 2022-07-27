@@ -20,6 +20,7 @@ import axios from "axios";
 import { DataStore, Predicates } from 'aws-amplify';
 import { Notification, NotificationType } from "models";
 import { table } from "console";
+import { createdNotification } from "graphql/subscriptions";
 
 export const NotificationPage = () => {
 
@@ -29,11 +30,11 @@ export const NotificationPage = () => {
     try {
       console.log("inside try")
       await DataStore.save(new Notification ({
-        type: NotificationType.TRAFFICK,
-        vehicleNumber: "7263",
+        type: NotificationType.ACCIDENT,
+        vehicleNumber: "7623487",
         blockNumber: "5500",
         tripRouteNumber: "470",
-        tripRouteName: "Bjørkelangen - Lillestrøm",
+        tripRouteName: "Bjørkelangen - Eidslia",
         plannedArrival: "15:07",
         estimatedArrival: "15:22",
         estimatedDelay: "15"
@@ -45,16 +46,14 @@ export const NotificationPage = () => {
     }
     console.log("etter create")
   }
+  createNotification();
 
   //GET NOTIFICATION METHOD
   const getNotifications = async () => {
     try {
+      console.log("tries get")
       let response = await DataStore.query(Notification);
-      /*await DataStore.save(
-        Notification.copyOf(original, updated => {
-          updated.vehicleNumber = newVehicleNumber
-        })
-      )*/
+
       console.log("Notification retrieved successfully!", JSON.stringify(response, null, 2));
       setNotifications(response);
     } catch (error) {
@@ -63,17 +62,20 @@ export const NotificationPage = () => {
   }
   const [notifications, setNotifications] = useState<Notification[]>();
   useEffect(() => {
-    const subscription = DataStore.observeQuery(Notification).subscribe(({ items }) => {
-      console.log("items", items)
+    DataStore.start();
+    /*const subscription = DataStore.observeQuery(Notification).subscribe(({ items }) => {
+      console.log("items. ", items)
       setNotifications(items)
     })
+    console.log(subscription)*/
     createNotification();
+    getNotifications();
     console.log("inni useeffect")
     //DataStore.delete(Notification, not => not.vehicleNumber("eq", "NY"));
-    return () => subscription.unsubscribe();
+  //  return () => subscription.unsubscribe();
     }, [])
 
-    //PER NÅ: HENTER ENDRINGER GJORT FRA FRONTEND (IKKE ENDRINGER SOM GJØRES I DATABASEN MEN JEG TROR DET ER FORDI DE IKKE ER GJORT VIA 
+    // APPSYNC APIet SÅ HVIS MAN GJØR DET SENERE (IRL) SÅ GÅR DET KANSKJE BRA)
     // APPSYNC APIet SÅ HVIS MAN GJØR DET SENERE (IRL VIA APIet)  SÅ GÅR DET KANSKJE BRA)
     //Settes til deleted=true backend, så tror det funker! 
 
