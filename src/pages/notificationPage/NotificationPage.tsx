@@ -10,12 +10,16 @@ import {
   Tfoot,
   Th,
   Thead,
-  Tr
+  Tr,
+  Heading, 
+  Stack, 
 } from "@vygruppen/spor-react";
 import React, { ReactComponentElement, useEffect, useMemo, useState } from "react";
+import { IoIosWarning } from "react-icons/io";
 import { SubTitle } from "components/Text/StyledTitles";
 import styled from "styled-components";
 import { Image } from "@vygruppen/spor-react";
+import { Card } from "@vygruppen/spor-react";
 import axios from "axios";
 import { DataStore, Predicates } from 'aws-amplify';
 import { Notification /*, NotificationType */} from "models";
@@ -67,8 +71,7 @@ export const NotificationPage = () => {
       setNotifications(items)
     })
     console.log(subscription)
-    createNotification();
-    //getNotifications();
+    //createNotification();
 
     //DataStore.delete(Notification, not => not.vehicleId("eq", 7623487));
     return () => subscription.unsubscribe();
@@ -77,31 +80,18 @@ export const NotificationPage = () => {
   return (
     <ErrorBoundary>
       <div className="NotificationPage">
-        <h4 style={{ color: 'black' }}>Varsler</h4>
-        <div className="Table">
-          <Table variant='outline' colorScheme="green" size="lg">
-            <Thead>
-              <Tr>
-                <Th>Buss</Th>
-                <Th>Rute</Th>
-                <Th isNumeric>Estimert forsinkelse</Th>
-                <Th isNumeric>Estimert ankomst</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-            {notifications ? notifications.map((element) => { 
-                return <Tr>  
-                    <Td>{element.vehicleId}</Td> 
-                    <Td>{element.tripRouteId}</Td> 
-                    <Td>{element.estimatedDelay}</Td> 
-                    <Td>{element.estimatedArrival}</Td> 
-                       </Tr> 
-                }) : <Tr><Td>Oslo S</Td> 
-                <Td>Drammen stasjon</Td> 
-                <Td isNumeric>12:09</Td> 
-                <Td isNumeric>12:42</Td></Tr>} 
-            </Tbody>
-          </Table>
+        <Heading textStyle="xl-display" padding="100">
+          Varsler
+        </Heading>
+        <div className="notificationCard">
+          {notifications ? notifications.map((element) => {
+            return <Stack>
+              <Card variant="elevated" as="a" padding="100" margin="5">
+                <Heading textStyle="lg">Buss {element.vehicleId} er forsinket med {element.estimatedDelay} minutter.</Heading>
+                <Heading textStyle="sm">Linje {element.tripRouteId} {element.tripRouteName} er forsinket på grunn av {element.type?.toLowerCase()}.</Heading>
+              </Card>
+            </Stack>
+          }) : <Card variant="elevated">Empty card</Card>}
         </div>
       </div>
     </ErrorBoundary>
