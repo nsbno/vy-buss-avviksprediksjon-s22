@@ -10,6 +10,11 @@
       "StackName": "amplify-vybusstrafficmonitor-staging-84029",
       "StackId": "arn:aws:cloudformation:eu-central-1:460968334607:stack/amplify-vybusstrafficmonitor-staging-84029/c4f2dcb0-0d87-11ed-9814-0a7cc218f77c",
       "AmplifyAppId": "d207z841n6trf3"
+    },
+    "categories": {
+      "auth": {
+        "vybusstrafficmonitorbddfb995": {}
+      }
     }
   }
 }
