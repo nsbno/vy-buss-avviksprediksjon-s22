@@ -38,8 +38,15 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "tripRouteName": {
-                    "name": "tripRouteName",
+                "tripStartPointName": {
+                    "name": "tripStartPointName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "tripEndPointName": {
+                    "name": "tripEndPointName",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -63,6 +70,20 @@ export const schema = {
                     "name": "estimatedDelay",
                     "isArray": false,
                     "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "tripTimeStart": {
+                    "name": "tripTimeStart",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "hasPublicTransportationLane": {
+                    "name": "hasPublicTransportationLane",
+                    "isArray": false,
+                    "type": "Boolean",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -98,25 +119,13 @@ export const schema = {
                     "properties": {}
                 },
                 {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
+                    "type": "aws_api_key",
+                    "properties": {}
                 }
             ]
         }
     },
     "enums": {},
     "nonModels": {},
-    "version": "cda0448d43075f388d1c7a9302920acc"
+    "version": "ddb7190b5b98973e6d9c1923a75f8dcb"
 };
