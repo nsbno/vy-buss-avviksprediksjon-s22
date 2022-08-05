@@ -1,5 +1,5 @@
 .NotificationPage {
-  /* background-color: #606568; */
+  /*background-color: #F5F5F5;*/
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -8,20 +8,48 @@
   /* color: #fff; */
 }
 
-.Table {
-  padding: 2rem;
+.switchPageButton {
+  padding: 100;
 }
 
-.notificationCard {
-
+.App-header {
+  background-color: #00453E;
+  width: 100%;
+  max-height: 114px;
 }
 
-.columnleft {
-  width: 50%; 
-  float:left
+.App-logo {
+  float: left;
+  padding: 10px;
+  max-width: 150px;
+  max-height: 100px;
 }
 
-.columnright {
-  width: 50%; 
-  float:right
+.flex {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+#card-header {
+  width: 100%;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+#card-header-header {
+  float: left;
+}
+#card-header-button {
+  -webkit-box-flex: 1 1 auto;
+  -moz-box-flex:  1 1 auto;
+  -webkit-flex:  1 1 auto;
+  -ms-flex:  1 1 auto;
+  flex:  1 1 auto;
+  float: right;
 }
