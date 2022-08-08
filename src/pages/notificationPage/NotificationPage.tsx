@@ -14,7 +14,10 @@ import {
   Tr,
   Th,
   Tbody,
-  Td
+  Td,
+  Tabs,
+  TabList,
+  Tab
 } from "@vygruppen/spor-react";
 import React, { useEffect, useState } from "react";
 import { DataStore } from 'aws-amplify';
@@ -87,14 +90,16 @@ export const NotificationPage = () => {
       <header className="App-header">
         <div className="flex">
           <img src={logo} className="App-logo" alt="logo" />
-            <Button className="switchPageButton" variant="control" onClick={() => setHandledPage(!handledPage)}> {handledPage ? "Se håndterte varsler" : "Tilbake til varsler"}</Button>
+          <Tabs variant="square" colorScheme="dark" size="lg" className="switchPageButton" onChange={() => setHandledPage(!handledPage)}>
+            <TabList>
+              <Tab  >Aktive varsler</Tab>
+              <Tab >Håndterte varsler</Tab>
+            </TabList>
+          </Tabs>
         </div>
       </header>
-        {handledPage ? <div>
-        <Heading textStyle="xl-display" padding="50" align="center">Varsler</Heading>
-        <Heading textStyle="md">Her vises forsinkelser estimert større enn 10 minutter</Heading>
-        </div>
-         : <Heading textStyle="xl-display" padding="50">Håndterte varsler</Heading>}
+        {handledPage ? <Heading textStyle="md" >Her vises turer estimert forsinket mer enn 10 minutter</Heading>
+         : <Heading textStyle="md" >Her vises håndterte forsinkelser estimert større enn 10 minutter</Heading> }
           <div className="notificationCard">
             {notifications ? notifications
             .map((element) => {
