@@ -33,15 +33,15 @@ export const NotificationPage = () => {
     try {
       await DataStore.save(new Notification ({
         type: "accident",
-        vehicleId: 7623487,
-        blockId: 5500,
-        tripRouteId: 470,
-        tripStartPointName: "Oslo bussterminal",
-        tripEndPointName: "Bjørklia",
-        plannedArrival:  new Date(2022, 8, 20, 25, 7).toISOString(), // "15:07",
-        estimatedArrival: new Date(2022, 8, 20, 25, 22).toISOString(), // "15:22",
-        estimatedDelay: 15,
-        tripTimeStart: new Date(2022, 8, 20, 25, 7).toISOString(), // "15:07",
+        vehicleId: 2309,
+        blockId: 26101,
+        tripRouteId: 256,
+        tripStartPointName: "Verket ferjekai",
+        tripEndPointName: "Sætre bussterminal",
+        plannedArrival:  new Date('09 August 2022 16:57 UTC').toISOString(), // "15:07",
+        estimatedArrival: new Date('09 August 2022 17:10 UTC').toISOString(), // "15:22",
+        estimatedDelay: 13,
+        tripTimeStart: new Date('09 August 2022 15:43 UTC').toISOString(), // "15:07",
         hasPublicTransportationLane: true,
         status: "UNHANDLED"
 
@@ -70,6 +70,7 @@ export const NotificationPage = () => {
   console.log(handledPage)
   const [notifications, setNotifications] = useState<Notification[]>();
   useEffect(() => {
+
     const subscription = DataStore.observeQuery(Notification).subscribe(({ items, isSynced }) => {
       console.log("items. ", items)
       const sortedItems: Notification[] = []
@@ -80,7 +81,7 @@ export const NotificationPage = () => {
     })
     //createNotification();
 
-    //DataStore.delete(Notification, not => not.id("eq", "d2055792-d398-4d20-9a04-20606edc780b"));
+    //DataStore.delete(Notification, not => not.tripStartPointName("eq", "Sætre bussterminal"));
     return () => subscription.unsubscribe();
     }, [])
 
@@ -121,6 +122,7 @@ export const NotificationPage = () => {
                           <Th>Vognløp</Th>
                           <Th>Buss</Th>
                           <Th>Linje</Th>
+                          <Th>Planlagt avreise</Th>
                           <Th>Planlagt ankomst ved endestopp</Th>
                           <Th>Estimert ankomst ved endestopp</Th>
                           <Th>Estimert forsinkelse</Th>
@@ -131,6 +133,7 @@ export const NotificationPage = () => {
                           <Td>{element.blockId}</Td>
                           <Td>{element.vehicleId}</Td>
                           <Td>{element.tripRouteId} {element.tripStartPointName} - {element.tripEndPointName}</Td>
+                          <Td>{element.tripTimeStart?.slice(11,16) }</Td>
                           <Td>{element.plannedArrival?.slice(11,16)}</Td>
                           <Td>{element.estimatedArrival?.slice(11,16)}</Td>
                           <Td>{element.estimatedDelay} min</Td>
