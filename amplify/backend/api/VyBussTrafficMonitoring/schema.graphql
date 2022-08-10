@@ -1,12 +1,17 @@
-type Notification @model @auth(rules: [{allow: public}]) {
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type Notification @model @aws_api_key {
   id: ID!
   type: String
   vehicleId: Int
   blockId: Int
   tripRouteId: Int
-  tripRouteName: String
+  tripStartPointName: String
+  tripEndPointName: String
   plannedArrival: AWSDateTime
   estimatedArrival: AWSDateTime
   estimatedDelay: Float
+  tripTimeStart: AWSDateTime
+  hasPublicTransportationLane: Boolean
   status: String
 }

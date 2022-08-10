@@ -14,10 +14,13 @@ export declare class Notification {
   readonly vehicleId?: number | null;
   readonly blockId?: number | null;
   readonly tripRouteId?: number | null;
-  readonly tripRouteName?: string | null;
+  readonly tripStartPointName?: string | null;
+  readonly tripEndPointName?: string | null;
   readonly plannedArrival?: string | null;
   readonly estimatedArrival?: string | null;
   readonly estimatedDelay?: number | null;
+  readonly tripTimeStart?: string | null;
+  readonly hasPublicTransportationLane?: boolean | null;
   readonly status?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

@@ -1,107 +1,187 @@
 import { ErrorBoundary } from "components/ErrorBoundary/ErrorBoundary";
-import logo from "vy-logo-white.svg";
+import logo from "./vy-logo-white.svg";
 import "./notificationPage.css";
 import {
-  Box,
+  Button,
+  Heading,
+  Stack,
+  Card,
+  WarningOutline30Icon,
+  SuccessOutline30Icon,
+  DeleteCircleOutline30Icon,
   Table,
-  TableCaption,
+  Thead,
+  Tr,
+  Th,
   Tbody,
   Td,
-  Tfoot,
-  Th,
-  Thead,
-  Tr
+  Tabs,
+  TabList,
+  Tab
 } from "@vygruppen/spor-react";
-import React, { ReactComponentElement, useEffect, useMemo, useState } from "react";
-import { SubTitle } from "components/Text/StyledTitles";
-import styled from "styled-components";
-import { Image } from "@vygruppen/spor-react";
-import axios from "axios";
-import { DataStore, Predicates } from 'aws-amplify';
-import { Notification /*, NotificationType */} from "models";
-import { table } from "console";
-//import { createdNotification } from "graphql/subscriptions";
+import React, { useEffect, useState } from "react";
+import { DataStore } from 'aws-amplify';
+import { Notification /*, NotificationType */ } from "models";
 
 export const NotificationPage = () => {
+
+  const [handledPage, setHandledPage] = useState(true);
 
   //CREATE NOTIFICATION
   const createNotification = async () => {
     console.log("inni create")
     try {
-      console.log("inside try")
-      await DataStore.save(new Notification ({
+      await DataStore.save(new Notification({
         type: "accident",
-        vehicleId: 7623487,
-        blockId: 5500,
-        tripRouteId: 470,
-        tripRouteName: "Bjørkelangen - Eidslia",
-        plannedArrival:  new Date(2022, 8, 20, 25, 7).toISOString(), // "15:07",
-        estimatedArrival: new Date(2022, 8, 20, 25, 22).toISOString(), // "15:22",
-        estimatedDelay: 15
+        vehicleId: 2309,
+        blockId: 26101,
+        tripRouteId: 256,
+        tripStartPointName: "Verket ferjekai",
+        tripEndPointName: "Sætre bussterminal",
+        plannedArrival: new Date('09 August 2022 16:57 UTC').toISOString(), // "15:07",
+        estimatedArrival: new Date('09 August 2022 17:10 UTC').toISOString(), // "15:22",
+        estimatedDelay: 13,
+        tripTimeStart: new Date('09 August 2022 15:43 UTC').toISOString(), // "15:07",
+        hasPublicTransportationLane: true,
+        status: "UNHANDLED"
+
       })
       );
       console.log("Created a notification")
     } catch (error) {
       console.log("Error creating Notification", error)
     }
-    console.log("etter create")
   }
 
-  //GET NOTIFICATION METHOD
-  const getNotifications = async () => {
-    try {
-      console.log("tries get")
-      let response = await DataStore.query(Notification);
 
-      console.log("Notification retrieved successfully!", JSON.stringify(response, null, 2));
-      setNotifications(response);
-    } catch (error) {
-      console.log("Error retrieving notifications", error);
-    }
+  async function updateNotificationStatus(notification: Notification) {
+    const original: any = await DataStore.query(Notification, notification.id);
+    await DataStore.save(
+      Notification.copyOf(original, updated => {
+        if (notification.status == "HANDLED") {
+          updated.status = "UNHANDLED"
+        } else {
+          updated.status = "HANDLED"
+        }
+      })
+    );
   }
+
+  console.log(handledPage)
   const [notifications, setNotifications] = useState<Notification[]>();
   useEffect(() => {
-    DataStore.start();
-    const subscription = DataStore.observeQuery(Notification).subscribe(({ items }) => {
-      console.log("items. ", items)
-      setNotifications(items)
-    })
-    console.log(subscription)
-    createNotification();
-    //getNotifications();
 
-    //DataStore.delete(Notification, not => not.vehicleId("eq", 7623487));
+    const subscription = DataStore.observeQuery(Notification).subscribe(({ items, isSynced }) => {
+      console.log("items. ", items)
+      const sortedItems: Notification[] = []
+      for (var i = items.length - 1; i >= 0; i--) {
+        sortedItems.push(items[i])
+      }
+      setNotifications(sortedItems)
+    })
+    //createNotification();
+
+    //DataStore.delete(Notification, not => not.tripStartPointName("eq", "Sætre bussterminal"));
     return () => subscription.unsubscribe();
-    }, [])
+  }, [])
 
   return (
     <ErrorBoundary>
       <div className="NotificationPage">
-        <h4 style={{ color: 'black' }}>Varsler</h4>
-        <div className="Table">
-          <Table variant='outline' colorScheme="green" size="lg">
-            <Thead>
-              <Tr>
-                <Th>Buss</Th>
-                <Th>Rute</Th>
-                <Th isNumeric>Estimert forsinkelse</Th>
-                <Th isNumeric>Estimert ankomst</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-            {notifications ? notifications.map((element) => { 
-                return <Tr>  
-                    <Td>{element.vehicleId}</Td> 
-                    <Td>{element.tripRouteId}</Td> 
-                    <Td>{element.estimatedDelay}</Td> 
-                    <Td>{element.estimatedArrival}</Td> 
-                       </Tr> 
-                }) : <Tr><Td>Oslo S</Td> 
-                <Td>Drammen stasjon</Td> 
-                <Td isNumeric>12:09</Td> 
-                <Td isNumeric>12:42</Td></Tr>} 
-            </Tbody>
-          </Table>
+        <header className="App-header">
+          <div className="flex">
+            <img src={logo} className="App-logo" alt="logo" />
+            <Tabs variant="square" colorScheme="dark" size="lg" className="switchPageButton" onChange={() => setHandledPage(!handledPage)}>
+              <TabList>
+                <Tab  >Aktive varsler</Tab>
+                <Tab >Håndterte varsler</Tab>
+              </TabList>
+            </Tabs>
+          </div>
+        </header>
+        {handledPage ? <Heading textStyle="md" >Her vises turer estimert forsinket mer enn 10 minutter</Heading>
+          : <Heading textStyle="md" >Her vises håndterte forsinkelser estimert større enn 10 minutter</Heading>}
+        <div className="notificationCard">
+          {notifications ? notifications
+            .map((element) => {
+              if (element.status == "UNHANDLED" && handledPage) {
+                return <div>
+                  <Stack>
+                    <Card variant="elevated" as="a" padding="50" margin="5">
+                      <div id="card-header">
+                        <Heading id="card-header-header" textStyle="lg" rightIcon={WarningOutline30Icon}>Buss {element.vehicleId} er estimert forsinket med {element.estimatedDelay} minutter</Heading>
+                        <div id="card-header-button" >
+                          <Button id="card-header-button" variant="tertiary" leftIcon={<SuccessOutline30Icon />} onClick={() => updateNotificationStatus(element)}>Marker varsel som håndtert</Button>
+                        </div>
+                      </div>
+                      {element.hasPublicTransportationLane ?
+                        <Heading leftIcon={<WarningOutline30Icon />} paddingTop="2" textStyle="sm">OBS: Linjen har kollektivfelt på deler av strekningen og forsinkelsen kan være mindre enn estimert </Heading> : <div></div>}
+                      <Table variant='simple' padding-top="5">
+                        <Thead>
+                          <Tr>
+                            <Th>Vognløp</Th>
+                            <Th>Buss</Th>
+                            <Th>Linje</Th>
+                            <Th>Planlagt avreise</Th>
+                            <Th>Planlagt ankomst ved endestopp</Th>
+                            <Th>Estimert ankomst ved endestopp</Th>
+                            <Th>Estimert forsinkelse</Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
+                          <Tr>
+                            <Td>{element.blockId}</Td>
+                            <Td>{element.vehicleId}</Td>
+                            <Td>{element.tripRouteId} {element.tripStartPointName} - {element.tripEndPointName}</Td>
+                            <Td>{element.tripTimeStart?.slice(11, 16)}</Td>
+                            <Td>{element.plannedArrival?.slice(11, 16)}</Td>
+                            <Td>{element.estimatedArrival?.slice(11, 16)}</Td>
+                            <Td>{element.estimatedDelay} min</Td>
+                          </Tr>
+                        </Tbody>
+                      </Table>
+                    </Card>
+                  </Stack>
+                </div>
+              } else if (element.status == "HANDLED" && !handledPage) {
+                return <Stack>
+                  <Card variant="elevated" as="a" padding="50" margin="5">
+                    <div id="card-header">
+                      <Heading id="card-header-header" textStyle="lg" rightIcon={WarningOutline30Icon}>Dette varselet er håndtert</Heading>
+                      <div id="card-header-button" >
+                        <Button id="card-header-button" variant="tertiary" leftIcon={<DeleteCircleOutline30Icon />} onClick={() => updateNotificationStatus(element)}>Flytt varsel tilbake til varslingssiden</Button>
+                      </div>
+                    </div>
+                    {element.hasPublicTransportationLane ? <Heading paddingTop="2" textStyle="sm">OBS: Linjen har kollektivfelt på deler av strekningen og forsinkelsen kan være mindre enn estimert </Heading> : <div></div>}
+                    <Table variant='simple' padding-top="5">
+                      <Thead>
+                        <Tr>
+                          <Th>Vognløp</Th>
+                          <Th>Buss</Th>
+                          <Th>Linje</Th>
+                          <Th>Planlagt avreise</Th>
+                          <Th>Planlagt ankomst ved endestopp</Th>
+                          <Th>Estimert ankomst ved endestopp</Th>
+                          <Th>Estimert forsinkelse</Th>
+                        </Tr>
+                      </Thead>
+                      <Tbody>
+                        <Tr>
+                          <Td>{element.blockId}</Td>
+                          <Td>{element.vehicleId}</Td>
+                          <Td>{element.tripRouteId} {element.tripStartPointName} - {element.tripEndPointName}</Td>
+                          <Td>{element.tripTimeStart?.slice(11, 16)}</Td>
+                          <Td>{element.plannedArrival?.slice(11, 16)}</Td>
+                          <Td>{element.estimatedArrival?.slice(11, 16)}</Td>
+                          <Td>{element.estimatedDelay} min</Td>
+                        </Tr>
+                      </Tbody>
+                    </Table>
+                  </Card>
+                </Stack>
+              }
+            }) : <Heading>Ingen nye varsler</Heading>}
+
         </div>
       </div>
     </ErrorBoundary>
