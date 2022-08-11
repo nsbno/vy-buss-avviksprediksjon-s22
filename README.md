@@ -1,3 +1,56 @@
+# How to get started
+
+## 1. Downloading the project
+Open the terminal
+Navigate to a folder where you want to store the project
+```
+git clone https://github.com/nsbno/vy-buss-avviksprediksjon-s22.git
+```
+
+## 2. Running the project
+
+```
+cd vy-buss-avviksprediksjon-s22
+npm install
+```
+Then we need to connect to amplify
+```
+npm install -g @aws-amplify/cli
+amplify init
+```
+Now choose the following options:
+```
+Do you want to use an existing environment? Yes
+Choose the environment you would like to use: staging
+Choose your default editor: Visual Studio Code
+Select the authentication method you want to use: AWS profile
+```
+If you don't have a user, which is most likely, you will need to create one now
+```
+? Setup new user Yes
+Specify the AWS Region: eu-central-1
+```
+Then choose a username (ex: use the first part of your vy-email address)
+Now a webpage will open, here just follow the steps:
+1. Add user
+  - Select AWS credential type: only use **Access key**)
+2. Filter policies:
+  - AdministratorAccess-Amplify
+3. Continue until the access key is generated
+  - **NB: Download this key (Download .csv)**
+
+Final steps
+- Now go back to the terminal and press enter
+- Then paste in the accessKeyId and secretAccessKey from the csv file you just downloaded
+- For the username you can just press enter to use the **default**
+
+To see if everything is working, just run the project
+```
+npm start
+```
+
+If there are any problems with the AWS setup, checkout [this link](https://docs.amplify.aws/cli/start/install/) 
+
 # TrafficGUI frontend baseline
 
 This is the baseline for making frontend apps, using TypeScript and React.
