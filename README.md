@@ -49,7 +49,7 @@ To see if everything is working, just run the project
 npm start
 ```
 
-If there are any problems with the AWS setup, checkout [this link](https://docs.amplify.aws/cli/start/install/) 
+If there are any problems with the AWS setup, checkout [this link](https://docs.amplify.aws/cli/start/install/) or [Confluence](https://vygruppen.atlassian.net/wiki/spaces/NSBFTITSI/pages/6665568261/Amplify+frontend+dokumentasjon)
 
 # TrafficGUI frontend baseline
 
